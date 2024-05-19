@@ -1,3 +1,4 @@
+using System;
 using Atomic.Elements;
 using Game.Scripts.Game.Common;
 using UnityEngine;
@@ -15,14 +16,6 @@ namespace Game.Scripts
         private void Awake()
         {
             _moveMechanic = new MoveMechanic(Direction, transform);
-        }
-
-        private void OnEnable()
-        {
-        }
-
-        private void OnDisable()
-        {
         }
 
         private void Update()

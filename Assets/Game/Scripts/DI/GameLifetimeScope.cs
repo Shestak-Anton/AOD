@@ -1,3 +1,4 @@
+using Game.Scripts.Game.Camera;
 using Game.Scripts.Game.Common;
 using Game.Scripts.Input;
 using VContainer;
@@ -13,6 +14,7 @@ namespace Game.Scripts.DI
             builder.RegisterEntryPoint<InputObserver>();
             
             builder.RegisterComponentInHierarchy<Player>().As<IMovable>();
+            builder.RegisterComponentInHierarchy<Camera>();
         }
     }
 }
