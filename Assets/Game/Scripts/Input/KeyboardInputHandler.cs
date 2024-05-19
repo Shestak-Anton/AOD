@@ -1,19 +1,13 @@
+using System;
 using Atomic.Elements;
 using UnityEngine;
 using VContainer.Unity;
 
 namespace Game.Scripts.Input
 {
-    public interface IInputDirectionProvider
+    public sealed class KeyboardInputHandler : ITickable
     {
-        IAtomicObservable<Vector3> Direction { get; }
-    }
-
-    public sealed class KeyboardInputHandler : ITickable, IInputDirectionProvider
-    {
-        public IAtomicObservable<Vector3> Direction => _direction;
-
-        private readonly AtomicVariable<Vector3> _direction = new();
+        public event Action<Vector3> OnDirection;
 
         public void Tick()
         {
@@ -38,7 +32,7 @@ namespace Game.Scripts.Input
                 result += Vector3.back;
             }
 
-            _direction.Value = result;
+            OnDirection?.Invoke(result);
         }
     }
 }

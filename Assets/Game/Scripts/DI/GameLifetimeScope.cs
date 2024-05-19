@@ -1,6 +1,6 @@
-using Game.Scripts.Game.Camera;
-using Game.Scripts.Game.Common;
+using Game.Scripts.Game.TargetFollower;
 using Game.Scripts.Input;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -10,10 +10,13 @@ namespace Game.Scripts.DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterEntryPoint<KeyboardInputHandler>();
-            builder.RegisterEntryPoint<InputObserver>();
+            builder.RegisterEntryPoint<KeyboardInputHandler>().AsSelf();
+            builder.RegisterEntryPoint<InputDirectionObserver>();
+            builder.RegisterEntryPoint<CursorInputHandler>().AsSelf();
+            builder.RegisterEntryPoint<CursorPositionObserver>();
             
-            builder.RegisterComponentInHierarchy<Player>().As<IMovable>();
+            builder.RegisterComponentInHierarchy<TargetFollowerComponent>();
+            builder.RegisterComponentInHierarchy<PlayerMovementComponent>();
             builder.RegisterComponentInHierarchy<Camera>();
         }
     }
