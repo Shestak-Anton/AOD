@@ -44,6 +44,9 @@ GameObject:
   - component: {fileID: 1847985737784961614}
   - component: {fileID: 2691131583617265358}
   - component: {fileID: 376052361434886097}
+  - component: {fileID: 4181360945023282764}
+  - component: {fileID: 9066318544206855654}
+  - component: {fileID: 7053873429163354679}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -110,6 +113,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cb8786fb6d45488e24e1fdec8f1e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <LookAtPoint>k__BackingField:
+    value: {x: 0, y: 0, z: 0}
+--- !u!114 &4181360945023282764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378945258768650400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446ccc654ab84702bd0b2139084dd040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletCorePrefab: {fileID: 5760668983266606332, guid: 7f12394cd99a93a4c8a18e1a0b1cbf06,
+    type: 3}
+  <FirePoint>k__BackingField: {fileID: 1067890634428359185}
+--- !u!114 &9066318544206855654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378945258768650400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cef9d2140b4f0b9b430ce11af13370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MoveDirection>k__BackingField:
+    value: {x: 0, y: 0, z: 0}
+  <Position>k__BackingField:
+    value: {x: 0, y: 0, z: 0}
+  <Speed>k__BackingField:
+    value: 1
+--- !u!114 &7053873429163354679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378945258768650400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14161bcc4a547bc8b7dea3b3d2e9e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LookAtComponent>k__BackingField: {fileID: 376052361434886097}
+  <MoveComponent>k__BackingField: {fileID: 9066318544206855654}
+  <ShootComponent>k__BackingField: {fileID: 4181360945023282764}
 --- !u!1 &8550233314304206884
 GameObject:
   m_ObjectHideFlags: 0

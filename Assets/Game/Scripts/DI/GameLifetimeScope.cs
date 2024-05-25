@@ -1,3 +1,4 @@
+using Game.Scripts.Game;
 using Game.Scripts.Game.TargetFollower;
 using Game.Scripts.Input;
 using UnityEngine;
@@ -12,11 +13,14 @@ namespace Game.Scripts.DI
         {
             builder.RegisterEntryPoint<KeyboardInputHandler>().AsSelf();
             builder.RegisterEntryPoint<InputDirectionObserver>();
-            builder.RegisterEntryPoint<CursorInputHandler>().AsSelf();
+            builder.RegisterEntryPoint<MouseButtonObserver>();
+            builder.RegisterEntryPoint<MouseInputHandler>().AsSelf();
             builder.RegisterEntryPoint<CursorPositionObserver>();
             
             builder.RegisterComponentInHierarchy<TargetFollowerComponent>();
-            builder.RegisterComponentInHierarchy<PlayerMovementComponent>();
+            builder.RegisterComponentInHierarchy<PlayerCoreComponent>();
+            builder.RegisterComponentInHierarchy<LookAtComponent>();
+            builder.RegisterComponentInHierarchy<MoveComponent>();
             builder.RegisterComponentInHierarchy<Camera>();
         }
     }

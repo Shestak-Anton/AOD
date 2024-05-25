@@ -1,21 +1,19 @@
-using Atomic.Elements;
 using UnityEngine;
+using Atomic.Elements;
 
 namespace Game.Scripts
 {
-    public sealed class PlayerMovementComponent : MonoBehaviour
+    public sealed class LookAtComponent : MonoBehaviour
     {
-        [field: SerializeField] public AtomicVariable<Vector3> MoveDirection { private set; get; }
         [field: SerializeField] public AtomicEvent<Vector3> RotateAction { private set; get; }
         [field: SerializeField] public AtomicVariable<Vector3> LookAtPoint { private set; get; }
 
-        private MoveMechanic _moveMechanic;
         private LookAtMechanic _lookAtMechanic;
         private RotationMechanic _rotationMechanic;
 
+
         private void Awake()
         {
-            _moveMechanic = new MoveMechanic(MoveDirection, transform);
             _lookAtMechanic = new LookAtMechanic(
                 RotateAction,
                 LookAtPoint,
@@ -25,7 +23,6 @@ namespace Game.Scripts
 
         private void Update()
         {
-            _moveMechanic.Update(Time.deltaTime);
             _lookAtMechanic.Update();
         }
 

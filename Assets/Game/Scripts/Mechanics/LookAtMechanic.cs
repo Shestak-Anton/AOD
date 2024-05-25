@@ -10,7 +10,6 @@ namespace Game.Scripts
         private readonly IAtomicValue<Vector3> _pointOfViewPosition;
 
         public LookAtMechanic(
-            
             IAtomicEvent<Vector3> rotateAction,
             IAtomicValue<Vector3> targetPoint,
             IAtomicValue<Vector3> pointOfViewPosition)

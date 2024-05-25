@@ -1,10 +1,12 @@
 using System;
 using Atomic.Elements;
+using JetBrains.Annotations;
 using UnityEngine;
 using VContainer.Unity;
 
 namespace Game.Scripts.Input
 {
+    [UsedImplicitly]
     public sealed class KeyboardInputHandler : ITickable
     {
         public event Action<Vector3> OnDirection;

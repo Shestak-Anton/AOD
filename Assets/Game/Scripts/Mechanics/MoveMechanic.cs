@@ -6,17 +6,22 @@ namespace Game.Scripts
     public sealed class MoveMechanic
     {
         private readonly IAtomicValue<Vector3> _direction;
-        private readonly Transform _transform;
+        private readonly IAtomicValue<float> _speed;
+        private readonly IAtomicVariable<Vector3> _position;
 
-        public MoveMechanic(IAtomicValue<Vector3> direction, Transform transform)
+        public MoveMechanic(
+            IAtomicValue<Vector3> direction,
+            IAtomicValue<float> speed,
+            IAtomicVariable<Vector3> position)
         {
             _direction = direction;
-            _transform = transform;
+            _speed = speed;
+            _position = position;
         }
 
         public void Update(float deltaTime)
         {
-            _transform.position += _direction.Value * deltaTime;
+            _position.Value += _direction.Value * (deltaTime * _speed.Value);
         }
     }
 }
