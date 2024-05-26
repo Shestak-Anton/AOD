@@ -23,17 +23,18 @@ namespace Game.Scripts.Game.TargetFollower
 
         public void Enable()
         {
-         _followingPosition.Subscribe(OnPositionChanged);   
+            _followingPosition.Subscribe(OnPositionChanged);
         }
 
         public void Disable()
         {
-            _followingPosition.Unsubscribe(OnPositionChanged);   
+            _followingPosition.Unsubscribe(OnPositionChanged);
         }
 
         private void OnPositionChanged(Vector3 position)
         {
             position.y = _controllablePosition.Value.y;
+            // _controllablePosition.Value = Vector3.Lerp(_controllablePosition.Value, position, Time.deltaTime);
             _controllablePosition.Value = position;
         }
     }
