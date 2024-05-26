@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0311beadeb14149a4b76c378afc0908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxZombieOnScene: 1
+  MaxZombieOnScene: 10
 --- !u!1 &91941558
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +565,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: 9066318544206855654, guid: 3b5b2ae0f895574449961910366cbf8a,
+        type: 3}
+      propertyPath: <Speed>k__BackingField.value
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b5b2ae0f895574449961910366cbf8a, type: 3}
 --- !u!4 &625937916 stripped

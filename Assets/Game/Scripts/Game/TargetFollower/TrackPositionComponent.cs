@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Game.Scripts.Game.TargetFollower
 {
-    public sealed class TargetFollowerComponent : MonoBehaviour
+    public sealed class TrackPositionComponent : MonoBehaviour
     {
         [field: SerializeField] public AtomicVariable<Vector3> Position { private set; get; }
 

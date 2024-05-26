@@ -8,12 +8,9 @@ namespace Game.Scripts.Game.Shoot
         [SerializeField] private float _speed = 2f;
         [SerializeField] private int _damage = 1;
 
-        public void Build(
-            Vector3 moveDirection,
-            Vector3 position
-        )
+        public void Build(Vector3 moveDirection)
         {
-            _moveComponent.Build(moveDirection, position, _speed);
+            _moveComponent.Build(moveDirection, _speed);
         }
         
         private void OnTriggerEnter(Collider other)

@@ -32,7 +32,7 @@ namespace Game.Scripts
         private void Shoot()
         {
             var bullet = _bulletFactory.Invoke(FirePoint.position, FirePoint.rotation);
-            bullet.Build(moveDirection: FirePoint.forward, position: FirePoint.position);
+            bullet.Build(moveDirection: FirePoint.forward);
         }
     }
 }

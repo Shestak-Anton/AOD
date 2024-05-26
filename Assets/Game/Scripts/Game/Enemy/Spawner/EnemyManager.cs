@@ -31,7 +31,7 @@ namespace Game.Scripts.Game.Enemy
 
         public bool RequestNewZombie(out ZombieCore zombie)
         {
-            var randomPositionIn = EnemySpawnPositionProvider.GetRandomPositionIn(Vector3.zero, Vector3.zero);
+            var randomPositionIn = EnemySpawnPositionProvider.GetRandomPositionIn(20f);
             var zombieInstance =
                 _zombieFactory.Invoke(randomPositionIn, Quaternion.LookRotation(_followingPosition.Value));
 

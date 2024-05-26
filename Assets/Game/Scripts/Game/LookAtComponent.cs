@@ -11,7 +11,6 @@ namespace Game.Scripts
         private LookAtMechanic _lookAtMechanic;
         private RotationMechanic _rotationMechanic;
 
-
         private void Awake()
         {
             _lookAtMechanic = new LookAtMechanic(

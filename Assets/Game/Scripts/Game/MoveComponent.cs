@@ -14,19 +14,19 @@ namespace Game.Scripts.Game
 
         public void Build(
             Vector3 moveDirection,
-            Vector3 position,
             float speed
         )
         {
             MoveDirection.Value = moveDirection;
-            Position.Value = position;
             Speed.Value = speed;
         }
 
         private void Awake()
         {
-            _dataPositionChangedHandler = new DataPositionChangedHandler(Position, transform);
+            Position.Value = transform.position;
+            
             _moveMechanic = new MoveMechanic(MoveDirection, Speed, Position);
+            _dataPositionChangedHandler = new DataPositionChangedHandler(Position, transform);
         }
 
 

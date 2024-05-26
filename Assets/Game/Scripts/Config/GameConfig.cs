@@ -4,6 +4,6 @@ namespace Game.Scripts.Config
 {
     public sealed class GameConfig : MonoBehaviour
     {
-        [field: SerializeField] public int MaxZombieOnScene = 1;
+        [field: SerializeField] public int MaxZombieOnScene = 20;
     }
 }

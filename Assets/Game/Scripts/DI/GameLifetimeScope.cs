@@ -21,7 +21,7 @@ namespace Game.Scripts.DI
             builder.RegisterEntryPoint<MouseInputHandler>().AsSelf();
             builder.RegisterEntryPoint<CursorPositionObserver>();
 
-            builder.RegisterComponentInHierarchy<TargetFollowerComponent>();
+            builder.RegisterComponentInHierarchy<TrackPositionComponent>();
             builder.RegisterComponentInHierarchy<Camera>();
             
             builder.RegisterComponentInHierarchy<GameConfig>();
