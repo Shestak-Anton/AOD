@@ -5,18 +5,19 @@ using VContainer.Unity;
 
 namespace Game.Scripts.Input
 {
-    public sealed class CursorPositionObserver : IStartable, IDisposable
+    public sealed class Cursor : IStartable, IDisposable
     {
         private readonly Camera _activeCamera;
         private readonly MouseInputHandler _mouseInputHandler;
-        private readonly LookAtComponent _lookAtComponent;
+        public Vector3 Position { private set; get; }
 
         [Inject]
-        public CursorPositionObserver(Camera camera, MouseInputHandler mouseInputHandler, LookAtComponent lookAtComponent)
+        public Cursor(
+            Camera camera, 
+            MouseInputHandler mouseInputHandler)
         {
             _activeCamera = camera;
             _mouseInputHandler = mouseInputHandler;
-            _lookAtComponent = lookAtComponent;
         }
 
         public void Start()
@@ -33,7 +34,7 @@ namespace Game.Scripts.Input
         {
             var worldPoint = _activeCamera.ScreenPointToRay(screenPosition).GetPoint(20f);
             worldPoint.y = 0f;
-            _lookAtComponent.LookAtPoint.Value = worldPoint;
+            Position = worldPoint;
         }
     }
 }

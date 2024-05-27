@@ -1,4 +1,3 @@
-using System;
 using Game.Scripts.Config;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -36,14 +35,14 @@ namespace Game.Scripts.Game.Enemy
         {
             if (_enemyManager.RequestNewZombie(out var zombie))
             {
-                zombie.LifeComponent.IsDead.Subscribe(isDead =>
+                zombie.ZombieCore.LifeComponent.IsDead.Subscribe(isDead =>
                 {
                     if (!isDead) return;
-                    
+
                     Destroy(zombie.gameObject);
                     Spawn();
                 });
-                zombie.Build(() => _playerCoreComponent.MoveComponent.Position.Value);
+                zombie.Compose(()=> _playerCoreComponent.MoveComponent.Position.Value);
             }
         }
     }

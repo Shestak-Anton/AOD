@@ -173,6 +173,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  _world: {fileID: 1366530279}
 --- !u!114 &18385287
 MonoBehaviour:
   m_ObjectHideFlags: 0

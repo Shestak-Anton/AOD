@@ -6,13 +6,13 @@ namespace Game.Scripts
     public sealed class LookAtMechanic
     {
         private readonly IAtomicEvent<Vector3> _rotateAction;
-        private readonly IAtomicValue<Vector3> _targetPoint;
-        private readonly IAtomicValue<Vector3> _pointOfViewPosition;
+        private readonly IAtomicFunction<Vector3> _targetPoint;
+        private readonly IAtomicFunction<Vector3> _pointOfViewPosition;
 
         public LookAtMechanic(
             IAtomicEvent<Vector3> rotateAction,
-            IAtomicValue<Vector3> targetPoint,
-            IAtomicValue<Vector3> pointOfViewPosition)
+            IAtomicFunction<Vector3> targetPoint,
+            IAtomicFunction<Vector3> pointOfViewPosition)
         {
             _rotateAction = rotateAction;
             _targetPoint = targetPoint;
@@ -21,7 +21,7 @@ namespace Game.Scripts
 
         public void Update()
         {
-            var direction = _targetPoint.Value - _pointOfViewPosition.Value;
+            var direction = _targetPoint.Invoke() - _pointOfViewPosition.Invoke();
             _rotateAction.Invoke(direction.normalized);
         }
     }

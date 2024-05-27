@@ -1,3 +1,4 @@
+using Game.Scripts.Game.Enemy;
 using UnityEngine;
 
 namespace Game.Scripts.Game.Shoot
@@ -12,13 +13,13 @@ namespace Game.Scripts.Game.Shoot
         {
             _moveComponent.Build(moveDirection, _speed);
         }
-        
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out TakeDamageComponent takeDamageComponent))
+            if (other.TryGetComponent(out Zombie zombie))
             {
-                   takeDamageComponent.TakeDamage.Invoke(_damage);
-                   Destroy(gameObject);
+                zombie.ZombieCore.TakeDamageComponent.TakeDamage.Invoke(_damage);
+                Destroy(gameObject);
             }
         }
     }

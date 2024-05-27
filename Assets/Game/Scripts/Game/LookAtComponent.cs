@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Atomic.Elements;
 
@@ -6,10 +7,15 @@ namespace Game.Scripts
     public sealed class LookAtComponent : MonoBehaviour
     {
         [field: SerializeField] public AtomicEvent<Vector3> RotateAction { private set; get; }
-        [field: SerializeField] public AtomicVariable<Vector3> LookAtPoint { private set; get; }
+        [field: SerializeField] public AtomicFunction<Vector3> LookAtPoint { private set; get; }
 
         private LookAtMechanic _lookAtMechanic;
         private RotationMechanic _rotationMechanic;
+
+        public void Compose(Func<Vector3> lookAtPosition)
+        {
+            LookAtPoint.Compose(lookAtPosition);
+        }
 
         private void Awake()
         {

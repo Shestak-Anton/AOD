@@ -75,12 +75,11 @@ GameObject:
   - component: {fileID: 7964997623459932075}
   - component: {fileID: 354380326650615950}
   - component: {fileID: 6486345383869258}
-  - component: {fileID: 4979835399373644724}
   - component: {fileID: -4533634745758633108}
   - component: {fileID: -3623773560197617600}
   - component: {fileID: 2201354715681674248}
-  - component: {fileID: 5461819594685346146}
   - component: {fileID: 273029945141581427}
+  - component: {fileID: 3827060305853360166}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -135,22 +134,6 @@ CapsuleCollider:
   m_Height: 2.4435
   m_Direction: 1
   m_Center: {x: 0, y: 1.27, z: 0}
---- !u!114 &4979835399373644724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5879414446769212800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f5bf77fa5b4367a9788d6beb780040, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <LifeComponent>k__BackingField: {fileID: -4533634745758633108}
-  <TakeDamageComponent>k__BackingField: {fileID: -3623773560197617600}
-  <MoveComponent>k__BackingField: {fileID: 2201354715681674248}
-  <LookAtComponent>k__BackingField: {fileID: 273029945141581427}
 --- !u!114 &-4533634745758633108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,20 +180,6 @@ MonoBehaviour:
     value: {x: 0, y: 0, z: 0}
   <Speed>k__BackingField:
     value: 4
---- !u!114 &5461819594685346146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5879414446769212800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52cb8786fb6d45488e24e1fdec8f1e71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <LookAtPoint>k__BackingField:
-    value: {x: 0, y: 0, z: 0}
 --- !u!114 &273029945141581427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,8 +192,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cb8786fb6d45488e24e1fdec8f1e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <LookAtPoint>k__BackingField:
-    value: {x: 0, y: 0, z: 0}
+--- !u!114 &3827060305853360166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879414446769212800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe4d4bcfff242679a76746080d6bf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ZombieCore>k__BackingField:
+    <LifeComponent>k__BackingField: {fileID: -4533634745758633108}
+    <TakeDamageComponent>k__BackingField: {fileID: -3623773560197617600}
+    <MoveComponent>k__BackingField: {fileID: 2201354715681674248}
+    <LookAtComponent>k__BackingField: {fileID: 273029945141581427}
+  <ZombieVisual>k__BackingField:
+    _animator: {fileID: 0}
 --- !u!1001 &1696610920246370783
 PrefabInstance:
   m_ObjectHideFlags: 0
