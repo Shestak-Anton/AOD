@@ -36,7 +36,7 @@ namespace Game.Scripts.DI
 
         private static void BuildPlayer(IContainerBuilder builder)
         {
-            builder.RegisterComponentInHierarchy<PlayerCoreComponent>();
+            builder.RegisterComponentInHierarchy<Player>();
             builder.RegisterComponentInHierarchy<LookAtComponent>();
             builder.RegisterComponentInHierarchy<MoveComponent>();
             builder.RegisterComponentInHierarchy<ShootComponent>();

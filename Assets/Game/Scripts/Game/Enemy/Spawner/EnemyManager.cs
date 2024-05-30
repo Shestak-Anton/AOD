@@ -21,19 +21,19 @@ namespace Game.Scripts.Game.Enemy
         public EnemyManager(
             Func<Vector3, Quaternion, Zombie> zombieFactory,
             GameConfig gameConfig,
-            PlayerCoreComponent playerCoreComponent
+            Player player
         )
         {
             _zombieFactory = zombieFactory;
             _maxZombieOnScene = gameConfig.MaxZombieOnScene;
-            _followingPosition = playerCoreComponent.MoveComponent.Position;
+            _followingPosition = player.PlayerCore.MoveComponent.Position;
         }
 
         public bool RequestNewZombie(out Zombie zombie)
         {
             var randomPositionIn = EnemySpawnPositionProvider.GetRandomPositionIn(20f);
             var zombieInstance =
-                _zombieFactory.Invoke(randomPositionIn, Quaternion.LookRotation(_followingPosition.Value));
+                _zombieFactory.Invoke(randomPositionIn, Quaternion.LookRotation(Vector3.up));
 
             zombie = zombieInstance;
             return true;

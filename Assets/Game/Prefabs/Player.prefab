@@ -46,7 +46,9 @@ GameObject:
   - component: {fileID: 376052361434886097}
   - component: {fileID: 4181360945023282764}
   - component: {fileID: 9066318544206855654}
-  - component: {fileID: 7053873429163354679}
+  - component: {fileID: 7407785881584448287}
+  - component: {fileID: 4319528130183031482}
+  - component: {fileID: 8776197190763700013}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -144,7 +146,7 @@ MonoBehaviour:
     value: {x: 0, y: 0, z: 0}
   <Speed>k__BackingField:
     value: 1
---- !u!114 &7053873429163354679
+--- !u!114 &7407785881584448287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,12 +155,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 6378945258768650400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d14161bcc4a547bc8b7dea3b3d2e9e07, type: 3}
+  m_Script: {fileID: 11500000, guid: 649895dd69ef41a8b447f815f71a1a76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MoveComponent>k__BackingField: {fileID: 9066318544206855654}
-  <ShootComponent>k__BackingField: {fileID: 4181360945023282764}
-  <LookAtComponent>k__BackingField: {fileID: 376052361434886097}
+  <PlayerCore>k__BackingField:
+    <MoveComponent>k__BackingField: {fileID: 9066318544206855654}
+    <ShootComponent>k__BackingField: {fileID: 4181360945023282764}
+    <LookAtComponent>k__BackingField: {fileID: 376052361434886097}
+    <TakeDamageComponent>k__BackingField: {fileID: 4319528130183031482}
+    <LifeComponent>k__BackingField: {fileID: 8776197190763700013}
+  <PlayerView>k__BackingField:
+    _animator: {fileID: 3435628029611942440}
+    _animationDispatcher: {fileID: 2276400267427442324}
+--- !u!114 &4319528130183031482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378945258768650400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6337f9acda4b908a083f15764f5d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8776197190763700013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378945258768650400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f3c26ee37a4115b9de3af6788f1409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Hp>k__BackingField:
+    value: 0
+  <IsDead>k__BackingField:
+    value: 0
 --- !u!1 &8550233314304206884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2608,6 +2644,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3587277423669050949, guid: 4754efaa13741644aa1a61e4869e2c0d,
         type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2314bcb07db64441a11f3b48e3eb97b4, type: 2}
+    - target: {fileID: 3587277423669050949, guid: 4754efaa13741644aa1a61e4869e2c0d,
+        type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -2630,6 +2671,24 @@ PrefabInstance:
 --- !u!4 &1067890634428359185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1203785381697748604, guid: 4754efaa13741644aa1a61e4869e2c0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2190258717553286253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2276400267427442324 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 140237526302110457, guid: 4754efaa13741644aa1a61e4869e2c0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2190258717553286253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e338b4e8a848a38ccb6d792324d012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &3435628029611942440 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3587277423669050949, guid: 4754efaa13741644aa1a61e4869e2c0d,
     type: 3}
   m_PrefabInstance: {fileID: 2190258717553286253}
   m_PrefabAsset: {fileID: 0}

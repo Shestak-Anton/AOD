@@ -10,6 +10,7 @@ namespace Game.Scripts
     {
         [field: SerializeField] public Transform FirePoint { private set; get; }
         [field: SerializeField] public AtomicEvent ShootEvent { private set; get; }
+        [field: SerializeField] public AtomicEvent OnShoot { private set; get; }
 
         private Func<Vector3, Quaternion, BulletCore> _bulletFactory;
 
@@ -21,12 +22,12 @@ namespace Game.Scripts
 
         private void OnEnable()
         {
-            ShootEvent.Subscribe(Shoot);
+            OnShoot.Subscribe(Shoot);
         }
 
         private void OnDisable()
         {
-            ShootEvent.Unsubscribe(Shoot);
+            OnShoot.Unsubscribe(Shoot);
         }
 
         private void Shoot()

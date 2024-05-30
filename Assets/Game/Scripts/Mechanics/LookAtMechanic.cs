@@ -8,21 +8,27 @@ namespace Game.Scripts
         private readonly IAtomicEvent<Vector3> _rotateAction;
         private readonly IAtomicFunction<Vector3> _targetPoint;
         private readonly IAtomicFunction<Vector3> _pointOfViewPosition;
-
+        private readonly IAtomicFunction<bool> _canLook;
+ 
         public LookAtMechanic(
             IAtomicEvent<Vector3> rotateAction,
             IAtomicFunction<Vector3> targetPoint,
-            IAtomicFunction<Vector3> pointOfViewPosition)
+            IAtomicFunction<Vector3> pointOfViewPosition, IAtomicFunction<bool> canLook)
         {
             _rotateAction = rotateAction;
             _targetPoint = targetPoint;
             _pointOfViewPosition = pointOfViewPosition;
+            _canLook = canLook;
         }
 
         public void Update()
         {
+            if (!_canLook.Invoke()) return;
             var direction = _targetPoint.Invoke() - _pointOfViewPosition.Invoke();
-            _rotateAction.Invoke(direction.normalized);
+            if (direction != Vector3.zero)
+            {
+                _rotateAction.Invoke(direction.normalized);
+            }
         }
     }
 }

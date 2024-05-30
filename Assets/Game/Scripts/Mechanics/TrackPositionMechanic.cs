@@ -34,7 +34,6 @@ namespace Game.Scripts.Game.TargetFollower
         private void OnPositionChanged(Vector3 position)
         {
             position.y = _controllablePosition.Value.y;
-            // _controllablePosition.Value = Vector3.Lerp(_controllablePosition.Value, position, Time.deltaTime);
             _controllablePosition.Value = position;
         }
     }

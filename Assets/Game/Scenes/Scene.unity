@@ -560,6 +560,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8776197190763700013, guid: 3b5b2ae0f895574449961910366cbf8a,
+        type: 3}
+      propertyPath: <Hp>k__BackingField.value
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9023474383538029961, guid: 3b5b2ae0f895574449961910366cbf8a,
         type: 3}
       propertyPath: m_Icon

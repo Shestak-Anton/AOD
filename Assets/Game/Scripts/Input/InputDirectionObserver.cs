@@ -8,10 +8,10 @@ namespace Game.Scripts.Input
     public sealed class InputDirectionObserver : IStartable, IDisposable
     {
         private readonly KeyboardInputHandler _keyboardInputHandler;
-        private readonly PlayerCoreComponent _player;
+        private readonly Player _player;
 
         [Inject]
-        public InputDirectionObserver(KeyboardInputHandler keyboardInputHandler, PlayerCoreComponent player)
+        public InputDirectionObserver(KeyboardInputHandler keyboardInputHandler, Player player)
         {
             _keyboardInputHandler = keyboardInputHandler;
             _player = player;
@@ -29,7 +29,7 @@ namespace Game.Scripts.Input
 
         private void OnInputDirectionChanged(Vector3 inputDirection)
         {
-            _player.MoveComponent.MoveDirection.Value = inputDirection;
+            _player.PlayerCore.MoveComponent.MoveDirection.Value = inputDirection;
         }
     }
 }

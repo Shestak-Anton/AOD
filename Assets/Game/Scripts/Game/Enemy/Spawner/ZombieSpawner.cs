@@ -8,17 +8,17 @@ namespace Game.Scripts.Game.Enemy
     public sealed class ZombieSpawner : MonoBehaviour
     {
         private EnemyManager _enemyManager;
-        private PlayerCoreComponent _playerCoreComponent;
+        private Player _player;
         private GameConfig _gameConfig;
 
         [Inject]
         public void Build(
             EnemyManager enemyManager,
-            PlayerCoreComponent playerCoreComponent,
+            Player playerCore,
             GameConfig gameConfig)
         {
             _enemyManager = enemyManager;
-            _playerCoreComponent = playerCoreComponent;
+            _player = playerCore;
             _gameConfig = gameConfig;
         }
 
@@ -33,17 +33,9 @@ namespace Game.Scripts.Game.Enemy
         [Button]
         public void Spawn()
         {
-            if (_enemyManager.RequestNewZombie(out var zombie))
-            {
-                zombie.ZombieCore.LifeComponent.IsDead.Subscribe(isDead =>
-                {
-                    if (!isDead) return;
-
-                    Destroy(zombie.gameObject);
-                    Spawn();
-                });
-                zombie.Compose(()=> _playerCoreComponent.MoveComponent.Position.Value);
-            }
+            if (!_enemyManager.RequestNewZombie(out var zombie)) return;
+            zombie.ZombieCore.LifeComponent.OnDeadEvent.Subscribe(Spawn);
+            zombie.Compose(_player);
         }
     }
 }

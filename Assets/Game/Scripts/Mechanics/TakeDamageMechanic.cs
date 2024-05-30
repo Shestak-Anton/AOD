@@ -26,6 +26,7 @@ namespace Game.Scripts.Game.Enemy
 
         private void OnTakeDamage(int damage)
         {
+            if (_hp.Value == 0) return;
             _hp.Value = Math.Max(_hp.Value - damage, 0);
         }
     }

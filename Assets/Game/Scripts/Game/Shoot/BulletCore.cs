@@ -11,7 +11,8 @@ namespace Game.Scripts.Game.Shoot
 
         public void Build(Vector3 moveDirection)
         {
-            _moveComponent.Build(moveDirection, _speed);
+            _moveComponent.MoveDirection.Value = moveDirection;
+            _moveComponent.Speed.Value = _speed;
         }
 
         private void OnTriggerEnter(Collider other)

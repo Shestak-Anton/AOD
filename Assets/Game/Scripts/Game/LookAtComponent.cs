@@ -8,13 +8,17 @@ namespace Game.Scripts
     {
         [field: SerializeField] public AtomicEvent<Vector3> RotateAction { private set; get; }
         [field: SerializeField] public AtomicFunction<Vector3> LookAtPoint { private set; get; }
+        [field: SerializeField] public AtomicFunction<bool> CanLook { private set; get; }
 
         private LookAtMechanic _lookAtMechanic;
         private RotationMechanic _rotationMechanic;
 
-        public void Compose(Func<Vector3> lookAtPosition)
+        public void Compose(
+            Func<Vector3> lookAtPosition,
+            Func<bool> canLook)
         {
             LookAtPoint.Compose(lookAtPosition);
+            CanLook.Compose(canLook);
         }
 
         private void Awake()
@@ -22,7 +26,8 @@ namespace Game.Scripts
             _lookAtMechanic = new LookAtMechanic(
                 RotateAction,
                 LookAtPoint,
-                new AtomicFunction<Vector3>(() => transform.position));
+                new AtomicFunction<Vector3>(() => transform.position),
+                CanLook);
             _rotationMechanic = new RotationMechanic(transform, RotateAction);
         }
 

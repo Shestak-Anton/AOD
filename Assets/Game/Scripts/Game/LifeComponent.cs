@@ -7,12 +7,13 @@ namespace Game.Scripts.Game
     {
         [field: SerializeField] public AtomicVariable<int> Hp { private set; get; }
         [field: SerializeField] public AtomicVariable<bool> IsDead { private set; get; }
+        [field: SerializeField] public AtomicEvent OnDeadEvent { private set; get; }
 
         private DeathMechanic _deathMechanic;
 
         private void Awake()
         {
-            _deathMechanic = new DeathMechanic(Hp, IsDead);
+            _deathMechanic = new DeathMechanic(Hp, IsDead, OnDeadEvent);
         }
 
         private void OnEnable()

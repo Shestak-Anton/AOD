@@ -561,10 +561,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3587277423659749849}
   - component: {fileID: 3587277423669050949}
-  - component: {fileID: 8343303208179451485}
-  - component: {fileID: 4896205456897335605}
   - component: {fileID: 8522569340991052280}
   - component: {fileID: 6195603595924291676}
+  - component: {fileID: 140237526302110457}
   m_Layer: 0
   m_Name: SoldierAssaultRifle
   m_TagString: Untagged
@@ -600,7 +599,7 @@ Animator:
   m_GameObject: {fileID: 3587277423659650105}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b82ef9d9ddd27e142b74f3586059c87f, type: 3}
-  m_Controller: {fileID: 9100000, guid: fd86273d433c9b7459f80cdc7eb4db4e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2314bcb07db64441a11f3b48e3eb97b4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -610,65 +609,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8343303208179451485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3587277423659650105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f2a3644d034990a53f2e1652a22471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterDocument: {fileID: 4896205456897335605}
---- !u!114 &4896205456897335605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3587277423659650105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e2a405771e3416ebeec7468c9a3a763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  externalSections: []
-  Core:
-    Life:
-      Heal:
-        value: 10
-      IsDead:
-        value: 0
-    Move:
-      MoveDirection:
-        value: {x: 0, y: 0, z: 0}
-      MoveSpeed:
-        value: 5
-      CanMove:
-        value: 0
-      LookDirection:
-        value: {x: 0, y: 0, z: 0}
-    Shoot:
-      MaxBullets:
-        value: 10
-      CurrentBullets:
-        value: 10
-      AttackCooldown:
-        value: 0.1
-      CurrentAttackCooldown:
-        value: 0
-      ReloadCooldown:
-        value: 2
-      CurrentReloadCoolldown:
-        value: 2
-      CanShoot:
-        value: 0
-      CanRestoreAmmo:
-        value: 0
-      _shootPoint: {fileID: 1203785381697748604}
 --- !u!54 &8522569340991052280
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -699,6 +639,18 @@ CapsuleCollider:
   m_Height: 2.15
   m_Direction: 1
   m_Center: {x: 0, y: 0.96, z: 0}
+--- !u!114 &140237526302110457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3587277423659650105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e338b4e8a848a38ccb6d792324d012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3587277423659650107
 GameObject:
   m_ObjectHideFlags: 0

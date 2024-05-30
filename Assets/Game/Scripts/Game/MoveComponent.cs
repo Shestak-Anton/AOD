@@ -9,24 +9,22 @@ namespace Game.Scripts.Game
         [field: SerializeField] public AtomicVariable<Vector3> MoveDirection { private set; get; }
         [field: SerializeField] public AtomicVariable<Vector3> Position { private set; get; }
         [field: SerializeField] public AtomicVariable<float> Speed { private set; get; } = new(1f);
+        [field: SerializeField] public AtomicFunction<bool> CanMove { private set; get; } = new(()=> true);
+
 
         private MoveMechanic _moveMechanic;
         private DataPositionChangedHandler _dataPositionChangedHandler;
 
-        public void Build(
-            Vector3 moveDirection,
-            float speed
-        )
+        public void Compose(Func<bool> canMove)
         {
-            MoveDirection.Value = moveDirection;
-            Speed.Value = speed;
+            CanMove.Compose(canMove);
         }
 
         private void Awake()
         {
             Position.Value = transform.position;
-            
-            _moveMechanic = new MoveMechanic(MoveDirection, Speed, Position);
+
+            _moveMechanic = new MoveMechanic(MoveDirection, Speed, Position, CanMove);
             _dataPositionChangedHandler = new DataPositionChangedHandler(Position, transform);
         }
 

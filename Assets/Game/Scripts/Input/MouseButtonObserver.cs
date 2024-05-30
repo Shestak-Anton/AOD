@@ -6,24 +6,24 @@ namespace Game.Scripts.Input
 {
     public sealed class MouseButtonObserver : IStartable, IDisposable
     {
-        private readonly PlayerCoreComponent _playerCoreComponent;
+        private readonly Player _playerCore;
         private readonly MouseInputHandler _mouseInputHandler;
 
         [Inject]
-        public MouseButtonObserver(PlayerCoreComponent playerCoreComponent, MouseInputHandler mouseInputHandler)
+        public MouseButtonObserver(Player playerCore, MouseInputHandler mouseInputHandler)
         {
-            _playerCoreComponent = playerCoreComponent;
+            _playerCore = playerCore;
             _mouseInputHandler = mouseInputHandler;
         }
 
         public void Start()
         {
-            _mouseInputHandler.OnLBPressed += _playerCoreComponent.ShootRequest.Invoke;
+            _mouseInputHandler.OnLBPressed += _playerCore.PlayerCore.ShootRequest.Invoke;
         }
 
         public void Dispose()
         {
-            _mouseInputHandler.OnLBPressed -= _playerCoreComponent.ShootRequest.Invoke;
+            _mouseInputHandler.OnLBPressed -= _playerCore.PlayerCore.ShootRequest.Invoke;
         }
     }
 }
