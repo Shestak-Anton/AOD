@@ -9,6 +9,7 @@ namespace Game.Scripts
     {
         public const string TAKE_DAMAGE_EVENT = nameof(TAKE_DAMAGE_EVENT);
         public const string POSITION_VARIABLE = nameof(POSITION_VARIABLE);
+        public const string IS_DEAD_COMPONENT = nameof(IS_DEAD_COMPONENT);
     }
 
     public sealed class Player : AtomicEntity
@@ -16,8 +17,10 @@ namespace Game.Scripts
         [field: SerializeField] public PlayerCore PlayerCore { private set; get; }
         [field: SerializeField] public PlayerView PlayerView { private set; get; }
 
+        [Get(PlayerApi.IS_DEAD_COMPONENT)] public AtomicVariable<bool> IsDead => PlayerCore.LifeComponent.IsDead;
+
         [Get(PlayerApi.TAKE_DAMAGE_EVENT)]
-        public AtomicEvent<int> TakeDamage => PlayerCore.TakeDamageComponent.TakeDamage;
+        public AtomicEvent<int> TakeDamageEvent => PlayerCore.TakeDamageComponent.TakeDamage;
 
         [Get(PlayerApi.POSITION_VARIABLE)] public AtomicVariable<Vector3> Position => PlayerCore.MoveComponent.Position;
 
@@ -27,7 +30,6 @@ namespace Game.Scripts
         public void Build(Input.Cursor cursor)
         {
             _cursor = cursor;
-            
         }
 
         private void Awake()

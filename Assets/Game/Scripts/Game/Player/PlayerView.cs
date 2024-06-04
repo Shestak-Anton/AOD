@@ -35,7 +35,10 @@ namespace Game.Scripts
                 _playerCore.ShootComponent.ShootEvent,
                 _playerCore.ShootComponent.OnShoot
             );
-            _moveAnimationMechanic = new MoveAnimationMechanic(_animator, _playerCore.MoveComponent.MoveDirection);
+            _moveAnimationMechanic = new MoveAnimationMechanic(
+                _animator, 
+                _playerCore.MoveComponent.MoveDirection,
+                _playerCore.MoveComponent.Speed);
         }
 
         public void Enable()

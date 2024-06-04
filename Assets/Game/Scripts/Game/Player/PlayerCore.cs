@@ -18,7 +18,7 @@ namespace Game.Scripts
 
         [field: SerializeField] public AtomicEvent ShootRequest { private set; get; }
 
-        private ShootPreparingMechanic _shootPreparingMechanic;
+        private AttackPreparingMechanic _attackPreparingMechanic;
         private TakeDamageMechanic _takeDamageMechanic;
 
 
@@ -26,9 +26,9 @@ namespace Game.Scripts
         {
             LookAtComponent.Compose(() => cursor.Position, ()=> !LifeComponent.IsDead.Value);
             var isShootingAvailable = new AtomicFunction<bool>(() => true);
-            _shootPreparingMechanic = new ShootPreparingMechanic(
-                shootRequest: ShootRequest,
-                shootEvent: ShootComponent.ShootEvent,
+            _attackPreparingMechanic = new AttackPreparingMechanic(
+                attackRequest: ShootRequest,
+                attackEvent: ShootComponent.ShootEvent,
                 isShootingAvailable
             );
             _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
@@ -37,13 +37,13 @@ namespace Game.Scripts
 
         public void Enable()
         {
-            _shootPreparingMechanic.Enable();
+            _attackPreparingMechanic.Enable();
             _takeDamageMechanic.Enable();
         }
 
         public void Disable()
         {
-            _shootPreparingMechanic.Disable();
+            _attackPreparingMechanic.Disable();
             _takeDamageMechanic.Disable();
         }
     }

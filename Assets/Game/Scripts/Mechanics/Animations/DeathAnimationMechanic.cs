@@ -11,7 +11,7 @@ namespace Game.Scripts
         private readonly IAtomicEvent _deadRequest;
         private readonly IAtomicEvent _onDead;
         
-        private static readonly int OnDeath = Animator.StringToHash("OnDeath");
+        private static readonly int OnDeath = Animator.StringToHash("Die");
         private const string LISTENER_NAME = "death";
 
         public DeathAnimationMechanic(

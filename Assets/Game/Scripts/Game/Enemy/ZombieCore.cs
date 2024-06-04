@@ -15,12 +15,13 @@ namespace Game.Scripts.Game.Enemy
         [field: SerializeField] public LookAtComponent LookAtComponent { private set; get; }
 
         [field: SerializeField] public AtomicFunction<Vector3> TargetPosition { private set; get; }
-        [field: SerializeField] public AtomicEvent<int> AttackTargetEvent { private set; get; }
         [field: SerializeField] public AtomicValue<float> AttackDistance { private set; get; }
         [field: SerializeField] public AtomicValue<int> AttackDamage { private set; get; }
         [field: SerializeField] public AtomicValue<float> AttackInterval { private set; get; }
         [field: SerializeField] public AtomicVariable<bool> IsAttacking { private set; get; }
+        [field: SerializeField] public AtomicFunction<bool> IsAttackAvailable { private set; get; }
         [field: SerializeField] public AtomicEvent AttackRequestEvent { private set; get; }
+        [field: SerializeField] public AtomicEvent<int> AttackTargetEvent { private set; get; }
 
 
         private TakeDamageMechanic _takeDamageMechanic;
@@ -33,12 +34,14 @@ namespace Game.Scripts.Game.Enemy
         {
             var targetPosition = target.Get<AtomicVariable<Vector3>>(PlayerApi.POSITION_VARIABLE);
             Func<Vector3> targetPositionFunction = () => targetPosition.Value;
-            TargetPosition.Compose(targetPositionFunction);
-            LookAtComponent.Compose(targetPositionFunction, () => !LifeComponent.IsDead.Value);
-
             var takeDamageEvent = target.Get<AtomicEvent<int>>(PlayerApi.TAKE_DAMAGE_EVENT);
             AttackTargetEvent.Subscribe(takeDamageEvent);
-
+            
+            var isDead = target.Get<AtomicVariable<bool>>(PlayerApi.IS_DEAD_COMPONENT);
+            
+            TargetPosition.Compose(targetPositionFunction);
+            LookAtComponent.Compose(targetPositionFunction, () => !LifeComponent.IsDead.Value);
+            IsAttackAvailable.Compose(() => !isDead.Value);
             MoveComponent.Compose(() => !LifeComponent.IsDead.Value && !IsAttacking.Value);
         }
 
@@ -54,7 +57,8 @@ namespace Game.Scripts.Game.Enemy
                 targetPosition: TargetPosition,
                 currentPosition: MoveComponent.Position,
                 attackDistance: AttackDistance,
-                attackEvent: AttackRequestEvent);
+                attackEvent: AttackRequestEvent,
+                attackAvailable: IsAttackAvailable);
             _damageDealerMechanic = new DamageDealerMechanic(
                 attackRequestEvent: AttackRequestEvent,
                 takeDamageEvent: AttackTargetEvent,

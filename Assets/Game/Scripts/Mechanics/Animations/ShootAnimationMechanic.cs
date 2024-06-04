@@ -10,7 +10,7 @@ namespace Game.Scripts
         private readonly AnimationDispatcher _animationDispatcher;
         private readonly IAtomicEvent _shootRequest;
         private readonly IAtomicEvent _shootEvent;
-        private static readonly int Shoot = Animator.StringToHash("OnShoot");
+        private static readonly int Shoot = Animator.StringToHash("Shoot");
         private const string LISTENER_NAME = "shoot";
 
         public ShootAnimationMechanic(
