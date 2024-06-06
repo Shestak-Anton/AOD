@@ -44,6 +44,11 @@ namespace Game.Scripts
             PlayerView.Enable();
         }
 
+        private void Update()
+        {
+            PlayerCore.Update();
+        }
+        
         private void OnDisable()
         {
             PlayerView.Disable();

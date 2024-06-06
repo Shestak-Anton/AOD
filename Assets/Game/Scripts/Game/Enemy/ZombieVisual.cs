@@ -36,7 +36,7 @@ namespace Game.Scripts.Game.Enemy
                 DeathEvent
             );
             _moveAnimationMechanic = new MoveAnimationMechanic(
-                _animator, _zombieCore.MoveComponent.MoveDirection, zombieCore.MoveComponent.Speed
+                _animator, _zombieCore.MoveComponent.MoveDirection
             );
         }
 

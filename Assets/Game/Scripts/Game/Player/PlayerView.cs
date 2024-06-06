@@ -30,15 +30,15 @@ namespace Game.Scripts
                 DeathEvent
             );
             _shootAnimationMechanic = new ShootAnimationMechanic(
-                _animator, 
-                _animationDispatcher, 
+                _animator,
+                _animationDispatcher,
                 _playerCore.ShootComponent.ShootEvent,
                 _playerCore.ShootComponent.OnShoot
             );
             _moveAnimationMechanic = new MoveAnimationMechanic(
-                _animator, 
-                _playerCore.MoveComponent.MoveDirection,
-                _playerCore.MoveComponent.Speed);
+                _animator,
+                _playerCore.MoveComponent.MoveDirection
+            );
         }
 
         public void Enable()

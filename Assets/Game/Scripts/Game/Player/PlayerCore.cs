@@ -15,36 +15,46 @@ namespace Game.Scripts
         [field: SerializeField] public LookAtComponent LookAtComponent { private set; get; }
         [field: SerializeField] public TakeDamageComponent TakeDamageComponent { private set; get; }
         [field: SerializeField] public LifeComponent LifeComponent { private set; get; }
-
         [field: SerializeField] public AtomicEvent ShootRequest { private set; get; }
+        [field: SerializeField] public AtomicVariable<int> BulletsCount { private set; get; }
+        [field: SerializeField] public AtomicValue<int> MaxBullet { private set; get; }
+        [field: SerializeField] public AtomicValue<float> RestoreInterval { private set; get; }
 
-        private AttackPreparingMechanic _attackPreparingMechanic;
         private TakeDamageMechanic _takeDamageMechanic;
+        private ShootMechanic _shootMechanic;
 
 
         public void Build(Cursor cursor)
         {
-            LookAtComponent.Compose(() => cursor.Position, ()=> !LifeComponent.IsDead.Value);
-            var isShootingAvailable = new AtomicFunction<bool>(() => true);
-            _attackPreparingMechanic = new AttackPreparingMechanic(
-                attackRequest: ShootRequest,
-                attackEvent: ShootComponent.ShootEvent,
-                isShootingAvailable
-            );
+            LookAtComponent.Compose(() => cursor.Position, () => !LifeComponent.IsDead.Value);
+            var isShootingAvailable = new AtomicFunction<bool>(() => !LifeComponent.IsDead.Value);
             _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
             MoveComponent.Compose(() => !LifeComponent.IsDead.Value);
+            _shootMechanic = new ShootMechanic(
+                BulletsCount,
+                MaxBullet,
+                RestoreInterval,
+                ShootRequest,
+                isShootingAvailable,
+                ShootComponent.ShootEvent
+            );
         }
 
         public void Enable()
         {
-            _attackPreparingMechanic.Enable();
             _takeDamageMechanic.Enable();
+            _shootMechanic.Enable();
+        }
+
+        public void Update()
+        {
+            _shootMechanic.Update();
         }
 
         public void Disable()
         {
-            _attackPreparingMechanic.Disable();
             _takeDamageMechanic.Disable();
+            _shootMechanic.Disable();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Game.Scripts.Game.Enemy
             
             TargetPosition.Compose(targetPositionFunction);
             LookAtComponent.Compose(targetPositionFunction, () => !LifeComponent.IsDead.Value);
-            IsAttackAvailable.Compose(() => !isDead.Value);
+            IsAttackAvailable.Compose(() => !isDead.Value && !isDead.Value);
             MoveComponent.Compose(() => !LifeComponent.IsDead.Value && !IsAttacking.Value);
         }
 
