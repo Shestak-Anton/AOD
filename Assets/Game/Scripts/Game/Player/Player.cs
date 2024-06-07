@@ -1,3 +1,4 @@
+using System;
 using Atomic.Elements;
 using Atomic.Objects;
 using UnityEngine;
@@ -30,18 +31,18 @@ namespace Game.Scripts
         [Get(PlayerApi.MOVE_DIRECTION_VARIABLE)] public IAtomicVariable<Vector3> Direction => _playerCore.MoveComponent.MoveDirection;
 
         [Get(PlayerApi.SHOOT_REQUEST_EVENT)] public IAtomicEvent ShootRequest => _playerCore.ShootRequest;
-        
-        private Input.Cursor _cursor;
+
+        private Func<Vector3> _position;
 
         [Inject]
         public void Build(Input.Cursor cursor)
         {
-            _cursor = cursor;
+            _position = () => cursor.Position;
         }
 
         private void Awake()
         {
-            _playerCore.Build(_cursor, this);
+            _playerCore.Build(()=> _position.Invoke(), this);
             _playerView.Build(_playerCore);
         }
 

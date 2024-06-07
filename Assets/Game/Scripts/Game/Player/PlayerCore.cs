@@ -25,10 +25,10 @@ namespace Game.Scripts
         private ShootMechanic _shootMechanic;
 
 
-        public void Build(Cursor cursor, AtomicObject atomicObject)
+        public void Build(Func<Vector3> position, AtomicObject atomicObject)
         {
             LifeComponent.Build(atomicObject);
-            LookAtComponent.Build(() => cursor.Position, () => !LifeComponent.IsDead.Value, atomicObject);
+            LookAtComponent.Build(position.Invoke, () => !LifeComponent.IsDead.Value, atomicObject);
             var isShootingAvailable = new AtomicFunction<bool>(() => !LifeComponent.IsDead.Value);
             MoveComponent.Compose(() => !LifeComponent.IsDead.Value, atomicObject);
             _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
