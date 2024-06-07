@@ -5,25 +5,32 @@ using VContainer;
 
 namespace Game.Scripts
 {
-    public class PlayerApi
+    public static class PlayerApi
     {
         public const string TAKE_DAMAGE_EVENT = nameof(TAKE_DAMAGE_EVENT);
         public const string POSITION_VARIABLE = nameof(POSITION_VARIABLE);
         public const string IS_DEAD_COMPONENT = nameof(IS_DEAD_COMPONENT);
+        public const string MOVE_DIRECTION_VARIABLE = nameof(MOVE_DIRECTION_VARIABLE);
+        public const string SHOOT_REQUEST_EVENT = nameof(SHOOT_REQUEST_EVENT);
     }
 
     public sealed class Player : AtomicEntity
     {
-        [field: SerializeField] public PlayerCore PlayerCore { private set; get; }
-        [field: SerializeField] public PlayerView PlayerView { private set; get; }
+        [SerializeField] private PlayerCore _playerCore;
+        [SerializeField] private PlayerView _playerView;
 
-        [Get(PlayerApi.IS_DEAD_COMPONENT)] public AtomicVariable<bool> IsDead => PlayerCore.LifeComponent.IsDead;
+        [Get(PlayerApi.IS_DEAD_COMPONENT)] public IAtomicVariable<bool> IsDead => _playerCore.LifeComponent.IsDead;
 
         [Get(PlayerApi.TAKE_DAMAGE_EVENT)]
-        public AtomicEvent<int> TakeDamageEvent => PlayerCore.TakeDamageComponent.TakeDamage;
+        public IAtomicEvent<int> TakeDamageEvent => _playerCore.TakeDamageComponent.TakeDamage;
 
-        [Get(PlayerApi.POSITION_VARIABLE)] public AtomicVariable<Vector3> Position => PlayerCore.MoveComponent.Position;
+        [Get(PlayerApi.POSITION_VARIABLE)]
+        public IAtomicVariable<Vector3> Position => _playerCore.MoveComponent.Position;
 
+        [Get(PlayerApi.MOVE_DIRECTION_VARIABLE)] public IAtomicVariable<Vector3> Direction => _playerCore.MoveComponent.MoveDirection;
+
+        [Get(PlayerApi.SHOOT_REQUEST_EVENT)] public IAtomicEvent ShootRequest => _playerCore.ShootRequest;
+        
         private Input.Cursor _cursor;
 
         [Inject]
@@ -34,25 +41,25 @@ namespace Game.Scripts
 
         private void Awake()
         {
-            PlayerCore.Build(_cursor);
-            PlayerView.Build(PlayerCore);
+            _playerCore.Build(_cursor);
+            _playerView.Build(_playerCore);
         }
 
         private void OnEnable()
         {
-            PlayerCore.Enable();
-            PlayerView.Enable();
+            _playerCore.Enable();
+            _playerView.Enable();
         }
 
         private void Update()
         {
-            PlayerCore.Update();
+            _playerCore.Update();
         }
-        
+
         private void OnDisable()
         {
-            PlayerView.Disable();
-            PlayerCore.Disable();
+            _playerView.Disable();
+            _playerCore.Disable();
         }
     }
 }

@@ -26,10 +26,11 @@ namespace Game.Scripts
 
         public void Build(Cursor cursor)
         {
-            LookAtComponent.Compose(() => cursor.Position, () => !LifeComponent.IsDead.Value);
+            LifeComponent.Build();
+            LookAtComponent.Build(() => cursor.Position, () => !LifeComponent.IsDead.Value);
             var isShootingAvailable = new AtomicFunction<bool>(() => !LifeComponent.IsDead.Value);
-            _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
             MoveComponent.Compose(() => !LifeComponent.IsDead.Value);
+            _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
             _shootMechanic = new ShootMechanic(
                 BulletsCount,
                 MaxBullet,
@@ -42,6 +43,7 @@ namespace Game.Scripts
 
         public void Enable()
         {
+            LifeComponent.Enable();
             _takeDamageMechanic.Enable();
             _shootMechanic.Enable();
         }
@@ -53,6 +55,7 @@ namespace Game.Scripts
 
         public void Disable()
         {
+            LifeComponent.Disable();
             _takeDamageMechanic.Disable();
             _shootMechanic.Disable();
         }

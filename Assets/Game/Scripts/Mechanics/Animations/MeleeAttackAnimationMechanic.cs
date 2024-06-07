@@ -42,6 +42,7 @@ namespace Game.Scripts.Game.Enemy
 
         private void OnAttackRequest()
         {
+
             _animator.SetTrigger(Attack);
         }
 

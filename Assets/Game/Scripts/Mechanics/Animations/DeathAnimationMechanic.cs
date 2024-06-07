@@ -17,7 +17,8 @@ namespace Game.Scripts
         public DeathAnimationMechanic(
             Animator animator,
             AnimationDispatcher animationDispatcher,
-            IAtomicEvent deadRequest, IAtomicEvent onDead)
+            IAtomicEvent deadRequest, 
+            IAtomicEvent onDead)
         {
             _animator = animator;
             _animationDispatcher = animationDispatcher;

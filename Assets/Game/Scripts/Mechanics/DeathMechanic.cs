@@ -27,12 +27,14 @@ namespace Game.Scripts.Game
 
         private void OnHpChanged(int hp)
         {
-            if (hp == 0 && !_isDead.Value)
+            _isDead.Value = hp == 0;
+            
+            if (_isDead.Value)
             {
                 _deadEvent.Invoke();
             }
 
-            _isDead.Value = hp == 0;
+            
         }
     }
 }

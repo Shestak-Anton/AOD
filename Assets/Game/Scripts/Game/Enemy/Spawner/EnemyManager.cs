@@ -9,24 +9,15 @@ namespace Game.Scripts.Game.Enemy
 {
     public sealed class EnemyManager
     {
-        public int ZombieCount => _registry.RegisteredCount;
-
-        private readonly Registry<Zombie> _registry = new();
-        private readonly int _maxZombieOnScene;
-
         private readonly Func<Vector3, Quaternion, Zombie> _zombieFactory;
-        private readonly IAtomicVariable<Vector3> _followingPosition;
 
         [Inject]
         public EnemyManager(
             Func<Vector3, Quaternion, Zombie> zombieFactory,
-            GameConfig gameConfig,
-            Player player
+            GameConfig gameConfig
         )
         {
             _zombieFactory = zombieFactory;
-            _maxZombieOnScene = gameConfig.MaxZombieOnScene;
-            _followingPosition = player.PlayerCore.MoveComponent.Position;
         }
 
         public bool RequestNewZombie(out Zombie zombie)
@@ -37,11 +28,6 @@ namespace Game.Scripts.Game.Enemy
 
             zombie = zombieInstance;
             return true;
-        }
-
-        public void RemoveZombie(Zombie zombie)
-        {
-            Object.Destroy(zombie.gameObject);
         }
         
     }

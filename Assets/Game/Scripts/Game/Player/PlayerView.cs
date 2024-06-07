@@ -14,7 +14,6 @@ namespace Game.Scripts
         [SerializeField] private Animator _animator;
         [SerializeField] private AnimationDispatcher _animationDispatcher;
 
-        private PlayerCore _playerCore;
 
         private DeathAnimationMechanic _deathAnimationMechanic;
         private ShootAnimationMechanic _shootAnimationMechanic;
@@ -22,22 +21,22 @@ namespace Game.Scripts
 
         public void Build(PlayerCore playerCore)
         {
-            _playerCore = playerCore;
             _deathAnimationMechanic = new DeathAnimationMechanic(
                 _animator,
                 _animationDispatcher,
-                _playerCore.LifeComponent.OnDeadEvent,
+                playerCore.LifeComponent.OnDeadEvent,
                 DeathEvent
             );
             _shootAnimationMechanic = new ShootAnimationMechanic(
                 _animator,
                 _animationDispatcher,
-                _playerCore.ShootComponent.ShootEvent,
-                _playerCore.ShootComponent.OnShoot
+                playerCore.ShootComponent.ShootEvent,
+                playerCore.ShootComponent.OnShoot
             );
             _moveAnimationMechanic = new MoveAnimationMechanic(
                 _animator,
-                _playerCore.MoveComponent.MoveDirection
+                playerCore.MoveComponent.MoveDirection,
+                playerCore.MoveComponent.CanMove
             );
         }
 

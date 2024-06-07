@@ -18,7 +18,7 @@ namespace Game.Scripts.Game.Enemy
         [field: SerializeField] public AtomicValue<float> AttackDistance { private set; get; }
         [field: SerializeField] public AtomicValue<int> AttackDamage { private set; get; }
         [field: SerializeField] public AtomicValue<float> AttackInterval { private set; get; }
-        [field: SerializeField] public AtomicVariable<bool> IsAttacking { private set; get; }
+        [field: SerializeField] public AtomicVariable<bool> IsInAttackRange { private set; get; }
         [field: SerializeField] public AtomicFunction<bool> IsAttackAvailable { private set; get; }
         [field: SerializeField] public AtomicEvent AttackRequestEvent { private set; get; }
         [field: SerializeField] public AtomicEvent<int> AttackTargetEvent { private set; get; }
@@ -27,8 +27,7 @@ namespace Game.Scripts.Game.Enemy
         private TakeDamageMechanic _takeDamageMechanic;
         private DirectToPositionMechanic _directToPositionMechanic;
         private MeleeAttackMechanic _meleeAttackMechanic;
-        private DamageDealerMechanic _damageDealerMechanic;
-        private StopToAttackMechanic _stopToAttackMechanic;
+        private RangeAttackMechanic _rangeAttackMechanic;
 
         public void Compose(IAtomicEntity target)
         {
@@ -36,17 +35,22 @@ namespace Game.Scripts.Game.Enemy
             Func<Vector3> targetPositionFunction = () => targetPosition.Value;
             var takeDamageEvent = target.Get<AtomicEvent<int>>(PlayerApi.TAKE_DAMAGE_EVENT);
             AttackTargetEvent.Subscribe(takeDamageEvent);
-            
+
             var isDead = target.Get<AtomicVariable<bool>>(PlayerApi.IS_DEAD_COMPONENT);
-            
+
             TargetPosition.Compose(targetPositionFunction);
-            LookAtComponent.Compose(targetPositionFunction, () => !LifeComponent.IsDead.Value);
-            IsAttackAvailable.Compose(() => !isDead.Value && !isDead.Value);
-            MoveComponent.Compose(() => !LifeComponent.IsDead.Value && !IsAttacking.Value);
+            LookAtComponent.Build(targetPositionFunction, () => !LifeComponent.IsDead.Value);
+            IsAttackAvailable.Compose(() =>
+                !isDead.Value &&
+                !LifeComponent.IsDead.Value &&
+                IsInAttackRange.Value 
+            );
+            MoveComponent.Compose(() => !LifeComponent.IsDead.Value && !IsInAttackRange.Value);
         }
 
         public void Build()
         {
+            LifeComponent.Build();
             _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
             _directToPositionMechanic = new DirectToPositionMechanic(
                 TargetPosition,
@@ -58,38 +62,33 @@ namespace Game.Scripts.Game.Enemy
                 currentPosition: MoveComponent.Position,
                 attackDistance: AttackDistance,
                 attackEvent: AttackRequestEvent,
-                attackAvailable: IsAttackAvailable);
-            _damageDealerMechanic = new DamageDealerMechanic(
-                attackRequestEvent: AttackRequestEvent,
-                takeDamageEvent: AttackTargetEvent,
-                damage: AttackDamage,
-                interval: AttackInterval
-            );
-            _stopToAttackMechanic = new StopToAttackMechanic(
+                attackAvailable: IsAttackAvailable,
+                attackInterval: AttackInterval);
+            _rangeAttackMechanic = new RangeAttackMechanic(
                 attackDistance: AttackDistance,
                 position: MoveComponent.Position,
                 target: TargetPosition,
-                isAttacking: IsAttacking
+                inAttackRange: IsInAttackRange
             );
         }
 
         public void Enable()
         {
+            LifeComponent.Enable();
             _takeDamageMechanic.Enable();
-            _damageDealerMechanic.Enable();
         }
 
         public void Update()
         {
             _directToPositionMechanic.Update();
             _meleeAttackMechanic.Update();
-            _stopToAttackMechanic.Update();
+            _rangeAttackMechanic.Update();
         }
 
         public void Disable()
         {
+            LifeComponent.Disable();
             _takeDamageMechanic.Disable();
-            _damageDealerMechanic.Disable();
         }
     }
 }

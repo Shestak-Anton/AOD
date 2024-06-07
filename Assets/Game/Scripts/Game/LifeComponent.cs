@@ -1,9 +1,11 @@
+using System;
 using Atomic.Elements;
 using UnityEngine;
 
 namespace Game.Scripts.Game
 {
-    public sealed class LifeComponent : MonoBehaviour
+    [Serializable]
+    public sealed class LifeComponent
     {
         [field: SerializeField] public AtomicVariable<int> Hp { private set; get; }
         [field: SerializeField] public AtomicVariable<bool> IsDead { private set; get; }
@@ -11,17 +13,17 @@ namespace Game.Scripts.Game
 
         private DeathMechanic _deathMechanic;
 
-        private void Awake()
+        public void Build()
         {
             _deathMechanic = new DeathMechanic(Hp, IsDead, OnDeadEvent);
         }
 
-        private void OnEnable()
+        public void Enable()
         {
             _deathMechanic.Enable();
         }
 
-        private void OnDisable()
+        public void Disable()
         {
             _deathMechanic.Disable();
         }

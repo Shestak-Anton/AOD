@@ -13,7 +13,7 @@ namespace Game.Scripts
         private LookAtMechanic _lookAtMechanic;
         private RotationMechanic _rotationMechanic;
 
-        public void Compose(
+        public void Build(
             Func<Vector3> lookAtPosition,
             Func<bool> canLook)
         {

@@ -1,3 +1,4 @@
+using Atomic.Objects;
 using Game.Scripts.Config;
 using Game.Scripts.Game;
 using Game.Scripts.Game.Enemy;
@@ -36,7 +37,7 @@ namespace Game.Scripts.DI
 
         private static void BuildPlayer(IContainerBuilder builder)
         {
-            builder.RegisterComponentInHierarchy<Player>();
+            builder.RegisterComponentInHierarchy<Player>().As<AtomicEntity>();
             builder.RegisterComponentInHierarchy<LookAtComponent>();
             builder.RegisterComponentInHierarchy<MoveComponent>();
             builder.RegisterComponentInHierarchy<ShootComponent>();
@@ -51,12 +52,13 @@ namespace Game.Scripts.DI
         private void BuildFactories(IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<PrefabProvider>();
-            RegisterFactory<BulletCore>(builder);
-            RegisterFactory<Zombie>(builder);
+            RegisterFactory<BulletCore, AtomicEntity>(builder);
+            RegisterFactory<Zombie, AtomicEntity>(builder);
         }
 
-        private void RegisterFactory<T>(IContainerBuilder builder)
-            where T : MonoBehaviour
+        private void RegisterFactory<T, TRegisterAs>(IContainerBuilder builder)
+            where T : TRegisterAs
+            where TRegisterAs : MonoBehaviour
         {
             builder.RegisterFactory<Vector3, Quaternion, T>((resolver) =>
             {

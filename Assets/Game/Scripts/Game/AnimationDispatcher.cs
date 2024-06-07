@@ -29,9 +29,10 @@ namespace Game.Scripts.Game
         public void ReceiveString(string actionKey)
         {
             if (!_actionsDictionary.TryGetValue(actionKey, out var actionsList)) return;
-            
-            foreach (var action in actionsList)
+
+            for (var index = 0; index < actionsList.Count; index++)
             {
+                var action = actionsList[index];
                 action?.Invoke();
             }
         }

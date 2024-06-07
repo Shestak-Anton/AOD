@@ -1,4 +1,6 @@
 using System;
+using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -8,13 +10,13 @@ namespace Game.Scripts.Input
     public sealed class InputDirectionObserver : IStartable, IDisposable
     {
         private readonly KeyboardInputHandler _keyboardInputHandler;
-        private readonly Player _player;
+        private readonly AtomicEntity _atomicEntity;
 
         [Inject]
-        public InputDirectionObserver(KeyboardInputHandler keyboardInputHandler, Player player)
+        public InputDirectionObserver(KeyboardInputHandler keyboardInputHandler, AtomicEntity atomicEntity)
         {
             _keyboardInputHandler = keyboardInputHandler;
-            _player = player;
+            _atomicEntity = atomicEntity;
         }
 
         public void Start()
@@ -29,7 +31,8 @@ namespace Game.Scripts.Input
 
         private void OnInputDirectionChanged(Vector3 inputDirection)
         {
-            _player.PlayerCore.MoveComponent.MoveDirection.Value = inputDirection;
+            var moveDirection = _atomicEntity.Get<IAtomicVariable<Vector3>>(PlayerApi.MOVE_DIRECTION_VARIABLE);
+            moveDirection.Value = inputDirection;
         }
     }
 }

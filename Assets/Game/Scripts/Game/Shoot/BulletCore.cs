@@ -1,9 +1,11 @@
+using Atomic.Elements;
+using Atomic.Objects;
 using Game.Scripts.Game.Enemy;
 using UnityEngine;
 
 namespace Game.Scripts.Game.Shoot
 {
-    public sealed class BulletCore : MonoBehaviour
+    public sealed class BulletCore : AtomicEntity
     {
         [SerializeField] private MoveComponent _moveComponent;
         [SerializeField] private float _speed = 2f;
@@ -17,11 +19,9 @@ namespace Game.Scripts.Game.Shoot
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Zombie zombie))
-            {
-                zombie.ZombieCore.TakeDamageComponent.TakeDamage.Invoke(_damage);
-                Destroy(gameObject);
-            }
+            if (!other.TryGetComponent(out AtomicEntity entity)) return;
+            entity.Get<IAtomicEvent<int>>(ZombieApi.TAKE_DAMAGE_EVENT).Invoke(_damage);
+            Destroy(gameObject);
         }
     }
 }

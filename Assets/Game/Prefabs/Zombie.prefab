@@ -75,8 +75,6 @@ GameObject:
   - component: {fileID: 7964997623459932075}
   - component: {fileID: 354380326650615950}
   - component: {fileID: 6486345383869258}
-  - component: {fileID: -4533634745758633108}
-  - component: {fileID: -3623773560197617600}
   - component: {fileID: 2201354715681674248}
   - component: {fileID: 273029945141581427}
   - component: {fileID: 3827060305853360166}
@@ -134,34 +132,6 @@ CapsuleCollider:
   m_Height: 2.4435
   m_Direction: 1
   m_Center: {x: 0, y: 1.27, z: 0}
---- !u!114 &-4533634745758633108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5879414446769212800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19f3c26ee37a4115b9de3af6788f1409, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Hp>k__BackingField:
-    value: 1
-  <IsDead>k__BackingField:
-    value: 0
---- !u!114 &-3623773560197617600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5879414446769212800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6337f9acda4b908a083f15764f5d2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2201354715681674248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,20 +174,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe4d4bcfff242679a76746080d6bf5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ZombieCore>k__BackingField:
-    <LifeComponent>k__BackingField: {fileID: -4533634745758633108}
-    <TakeDamageComponent>k__BackingField: {fileID: -3623773560197617600}
+  _zombieCore:
+    <LifeComponent>k__BackingField:
+      <Hp>k__BackingField:
+        value: 1
+      <IsDead>k__BackingField:
+        value: 0
+    <TakeDamageComponent>k__BackingField: {}
     <MoveComponent>k__BackingField: {fileID: 2201354715681674248}
     <LookAtComponent>k__BackingField: {fileID: 273029945141581427}
     <AttackDistance>k__BackingField:
-      value: 2
+      value: 1.4
     <AttackDamage>k__BackingField:
-      value: 2
+      value: 1
     <AttackInterval>k__BackingField:
       value: 1
-    <IsAttacking>k__BackingField:
+    <IsInAttackRange>k__BackingField:
       value: 0
-  <ZombieVisual>k__BackingField:
+  _zombieVisual:
     _animator: {fileID: 4828065441531083015}
     _animationDispatcher: {fileID: 7833717629594204415}
 --- !u!1001 &1696610920246370783

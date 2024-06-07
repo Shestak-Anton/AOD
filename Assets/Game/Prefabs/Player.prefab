@@ -47,8 +47,6 @@ GameObject:
   - component: {fileID: 4181360945023282764}
   - component: {fileID: 9066318544206855654}
   - component: {fileID: 7407785881584448287}
-  - component: {fileID: 4319528130183031482}
-  - component: {fileID: 8776197190763700013}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -158,43 +156,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649895dd69ef41a8b447f815f71a1a76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerCore>k__BackingField:
+  _playerCore:
     <MoveComponent>k__BackingField: {fileID: 9066318544206855654}
     <ShootComponent>k__BackingField: {fileID: 4181360945023282764}
     <LookAtComponent>k__BackingField: {fileID: 376052361434886097}
-    <TakeDamageComponent>k__BackingField: {fileID: 4319528130183031482}
-    <LifeComponent>k__BackingField: {fileID: 8776197190763700013}
-  <PlayerView>k__BackingField:
+    <TakeDamageComponent>k__BackingField: {}
+    <LifeComponent>k__BackingField:
+      <Hp>k__BackingField:
+        value: 5
+      <IsDead>k__BackingField:
+        value: 0
+    <BulletsCount>k__BackingField:
+      value: 10
+    <MaxBullet>k__BackingField:
+      value: 10
+    <RestoreInterval>k__BackingField:
+      value: 2
+  _playerView:
     _animator: {fileID: 3435628029611942440}
     _animationDispatcher: {fileID: 2276400267427442324}
---- !u!114 &4319528130183031482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6378945258768650400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6337f9acda4b908a083f15764f5d2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8776197190763700013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6378945258768650400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19f3c26ee37a4115b9de3af6788f1409, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Hp>k__BackingField:
-    value: 0
-  <IsDead>k__BackingField:
-    value: 0
 --- !u!1 &8550233314304206884
 GameObject:
   m_ObjectHideFlags: 0

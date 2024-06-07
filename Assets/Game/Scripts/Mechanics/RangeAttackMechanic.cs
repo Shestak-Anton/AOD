@@ -3,29 +3,29 @@ using UnityEngine;
 
 namespace Game.Scripts.Game.Enemy
 {
-    public class StopToAttackMechanic
+    public class RangeAttackMechanic
     {
         private readonly IAtomicValue<float> _attackDistance;
         private readonly IAtomicVariable<Vector3> _position;
         private readonly IAtomicValue<Vector3> _target;
-        private readonly IAtomicVariable<bool> _isAttacking;
+        private readonly IAtomicVariable<bool> _inAttackRange;
 
-        public StopToAttackMechanic(
+        public RangeAttackMechanic(
             IAtomicValue<float> attackDistance,
             IAtomicVariable<Vector3> position,
             IAtomicValue<Vector3> target,
-            IAtomicVariable<bool> isAttacking)
+            IAtomicVariable<bool> inAttackRange)
         {
             _attackDistance = attackDistance;
             _position = position;
             _target = target;
-            _isAttacking = isAttacking;
+            _inAttackRange = inAttackRange;
         }
 
 
         public void Update()
         {
-            _isAttacking.Value = Vector3.Distance(_position.Value, _target.Value) <= _attackDistance.Value;
+            _inAttackRange.Value = Vector3.Distance(_position.Value, _target.Value) <= _attackDistance.Value;
         }
     }
 }

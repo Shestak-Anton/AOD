@@ -1,3 +1,5 @@
+using Atomic.Elements;
+using Atomic.Objects;
 using Game.Scripts.Config;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,17 +10,17 @@ namespace Game.Scripts.Game.Enemy
     public sealed class ZombieSpawner : MonoBehaviour
     {
         private EnemyManager _enemyManager;
-        private Player _player;
+        private AtomicEntity _target;
         private GameConfig _gameConfig;
 
         [Inject]
         public void Build(
             EnemyManager enemyManager,
-            Player playerCore,
+            AtomicEntity target,
             GameConfig gameConfig)
         {
             _enemyManager = enemyManager;
-            _player = playerCore;
+            _target = target;
             _gameConfig = gameConfig;
         }
 
@@ -34,8 +36,8 @@ namespace Game.Scripts.Game.Enemy
         public void Spawn()
         {
             if (!_enemyManager.RequestNewZombie(out var zombie)) return;
-            zombie.ZombieCore.LifeComponent.OnDeadEvent.Subscribe(Spawn);
-            zombie.Compose(_player);
+            zombie.Get<IAtomicEvent>(ZombieApi.DEATH_EVENT).Subscribe(Spawn);
+            zombie.Compose(_target);
         }
     }
 }
