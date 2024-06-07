@@ -27,7 +27,8 @@ namespace Game.Scripts.Game.Shoot
         private void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out AtomicEntity entity)) return;
-            entity.Get<IAtomicEvent<int>>(ZombieApi.TAKE_DAMAGE_EVENT)?.Invoke(_damage);
+            if (!entity.TryGet<IAtomicEvent<int>>(ZombieApi.TAKE_DAMAGE_EVENT, out var damageEvent)) return;
+            damageEvent.Invoke(_damage);
             Destroy(gameObject);
         }
     }
