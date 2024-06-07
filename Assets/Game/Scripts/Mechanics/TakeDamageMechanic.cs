@@ -1,9 +1,10 @@
 using System;
 using Atomic.Elements;
+using Atomic.Objects;
 
 namespace Game.Scripts.Game.Enemy
 {
-    public sealed class TakeDamageMechanic
+    public sealed class TakeDamageMechanic : IAtomicEnable, IAtomicDisable
     {
         private readonly IAtomicObservable<int> _onDamage;
         private readonly IAtomicVariable<int> _hp;

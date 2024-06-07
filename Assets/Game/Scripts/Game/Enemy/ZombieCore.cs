@@ -23,13 +23,7 @@ namespace Game.Scripts.Game.Enemy
         [field: SerializeField] public AtomicEvent AttackRequestEvent { private set; get; }
         [field: SerializeField] public AtomicEvent<int> AttackTargetEvent { private set; get; }
 
-
-        private TakeDamageMechanic _takeDamageMechanic;
-        private DirectToPositionMechanic _directToPositionMechanic;
-        private MeleeAttackMechanic _meleeAttackMechanic;
-        private RangeAttackMechanic _rangeAttackMechanic;
-
-        public void Compose(IAtomicEntity target)
+        public void Compose(AtomicEntity target, AtomicObject zombie)
         {
             var targetPosition = target.Get<AtomicVariable<Vector3>>(PlayerApi.POSITION_VARIABLE);
             Func<Vector3> targetPositionFunction = () => targetPosition.Value;
@@ -39,56 +33,41 @@ namespace Game.Scripts.Game.Enemy
             var isDead = target.Get<AtomicVariable<bool>>(PlayerApi.IS_DEAD_COMPONENT);
 
             TargetPosition.Compose(targetPositionFunction);
-            LookAtComponent.Build(targetPositionFunction, () => !LifeComponent.IsDead.Value);
+            LookAtComponent.Build(targetPositionFunction, () => !LifeComponent.IsDead.Value, zombie);
             IsAttackAvailable.Compose(() =>
                 !isDead.Value &&
                 !LifeComponent.IsDead.Value &&
-                IsInAttackRange.Value 
+                IsInAttackRange.Value
             );
-            MoveComponent.Compose(() => !LifeComponent.IsDead.Value && !IsInAttackRange.Value);
+            MoveComponent.Compose(() => !LifeComponent.IsDead.Value && !IsInAttackRange.Value, zombie);
         }
 
-        public void Build()
+        public void Build(AtomicObject zombie)
         {
-            LifeComponent.Build();
-            _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
-            _directToPositionMechanic = new DirectToPositionMechanic(
+            LifeComponent.Build(zombie);
+            var takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
+            var directToPositionMechanic = new DirectToPositionMechanic(
                 TargetPosition,
                 MoveComponent.MoveDirection,
                 MoveComponent.Position
             );
-            _meleeAttackMechanic = new MeleeAttackMechanic(
+            var meleeAttackMechanic = new MeleeAttackMechanic(
                 targetPosition: TargetPosition,
                 currentPosition: MoveComponent.Position,
                 attackDistance: AttackDistance,
                 attackEvent: AttackRequestEvent,
                 attackAvailable: IsAttackAvailable,
                 attackInterval: AttackInterval);
-            _rangeAttackMechanic = new RangeAttackMechanic(
+            var rangeAttackMechanic = new RangeAttackMechanic(
                 attackDistance: AttackDistance,
                 position: MoveComponent.Position,
                 target: TargetPosition,
                 inAttackRange: IsInAttackRange
             );
-        }
-
-        public void Enable()
-        {
-            LifeComponent.Enable();
-            _takeDamageMechanic.Enable();
-        }
-
-        public void Update()
-        {
-            _directToPositionMechanic.Update();
-            _meleeAttackMechanic.Update();
-            _rangeAttackMechanic.Update();
-        }
-
-        public void Disable()
-        {
-            LifeComponent.Disable();
-            _takeDamageMechanic.Disable();
+            zombie.AddLogic(takeDamageMechanic);
+            zombie.AddLogic(directToPositionMechanic);
+            zombie.AddLogic(meleeAttackMechanic);
+            zombie.AddLogic(rangeAttackMechanic);
         }
     }
 }

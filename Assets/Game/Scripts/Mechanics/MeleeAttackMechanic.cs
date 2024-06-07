@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game.Enemy
 {
-    public sealed class MeleeAttackMechanic
+    public sealed class MeleeAttackMechanic : IAtomicUpdate
     {
         private readonly IAtomicValue<Vector3> _targetPosition;
         private readonly IAtomicValue<Vector3> _currentPosition;
@@ -13,7 +14,7 @@ namespace Game.Scripts.Game.Enemy
         private readonly IAtomicEvent _attackEvent;
 
         private float _lastDamage;
-        
+
         public MeleeAttackMechanic(
             IAtomicValue<Vector3> targetPosition,
             IAtomicValue<Vector3> currentPosition,
@@ -30,7 +31,7 @@ namespace Game.Scripts.Game.Enemy
             _attackInterval = attackInterval;
         }
 
-        public void Update()
+        public void OnUpdate(float deltaTime)
         {
             if (!_attackAvailable.Value) return;
             if (_currentPosition.Value == Vector3.zero && _targetPosition.Value == Vector3.zero) return;

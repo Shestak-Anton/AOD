@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts
 {
-    public sealed class MoveMechanic
+    public sealed class MoveMechanic : IAtomicUpdate
     {
         private readonly IAtomicValue<Vector3> _direction;
         private readonly IAtomicValue<float> _speed;
@@ -21,8 +22,8 @@ namespace Game.Scripts
             _position = position;
             _canMove = canMove;
         }
-
-        public void Update(float deltaTime)
+        
+        public void OnUpdate(float deltaTime)
         {
             if (!_canMove.Value) return;
             _position.Value += _direction.Value * (deltaTime * _speed.Value);

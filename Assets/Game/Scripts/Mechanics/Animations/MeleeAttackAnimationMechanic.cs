@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game.Enemy
 {
-    public sealed class MeleeAttackAnimationMechanic
+    public sealed class MeleeAttackAnimationMechanic : IAtomicEnable, IAtomicDisable
     {
         private readonly Animator _animator;
         private readonly AnimationDispatcher _animationDispatcher;

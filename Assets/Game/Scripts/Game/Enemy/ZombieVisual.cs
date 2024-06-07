@@ -1,5 +1,6 @@
 using System;
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game.Enemy
@@ -12,46 +13,33 @@ namespace Game.Scripts.Game.Enemy
         [SerializeField] private Animator _animator;
         [SerializeField] private AnimationDispatcher _animationDispatcher;
 
-        private ZombieCore _zombieCore;
-
-        private MeleeAttackAnimationMechanic _meleeAttackAnimationMechanic;
-        private DeathAnimationMechanic _deathAnimationMechanic;
-        private MoveAnimationMechanic _moveAnimationMechanic;
-
-        public void Build(ZombieCore zombieCore)
+        public void Build(AtomicObject atomicObject)
         {
-            _zombieCore = zombieCore;
+            var attackRequestEvent = atomicObject.Get<IAtomicEvent>(ZombieApi.ATTACK_REQUEST_EVENT);
+            var attackTargetEvent = atomicObject.Get<IAtomicEvent<int>>(ZombieApi.ATTACK_TARGET_EVENT);
+            var attackDamage = atomicObject.Get<IAtomicValue<int>>(ZombieApi.ATTACK_DAMAGE);
+            var deathEvent = atomicObject.Get<IAtomicEvent>(ZombieApi.DEATH_EVENT);
+            var moveDirection = atomicObject.Get<IAtomicObservable<Vector3>>(ZombieApi.MOVE_DIRECTION);
+            var canMove = atomicObject.Get<IAtomicFunction<bool>>(ZombieApi.CAN_MOVE);
 
-            _meleeAttackAnimationMechanic = new MeleeAttackAnimationMechanic(
+            var meleeAttackAnimationMechanic = new MeleeAttackAnimationMechanic(
                 animator: _animator,
                 animationDispatcher: _animationDispatcher,
-                attackRequest: _zombieCore.AttackRequestEvent,
-                attackEvent: zombieCore.AttackTargetEvent,
-                damage: zombieCore.AttackDamage
+                attackRequest: attackRequestEvent,
+                attackEvent: attackTargetEvent,
+                damage: attackDamage
             );
-            _deathAnimationMechanic = new DeathAnimationMechanic(
+            var deathAnimationMechanic = new DeathAnimationMechanic(
                 _animator,
                 _animationDispatcher,
-                _zombieCore.LifeComponent.OnDeadEvent,
+                deathEvent,
                 DeathEvent
             );
-            _moveAnimationMechanic = new MoveAnimationMechanic(
-                _animator, _zombieCore.MoveComponent.MoveDirection, zombieCore.MoveComponent.CanMove
-            );
-        }
+            var moveAnimationMechanic = new MoveAnimationMechanic(_animator, moveDirection, canMove);
 
-        public void Enable()
-        {
-            _meleeAttackAnimationMechanic.Enable();
-            _deathAnimationMechanic.Enable();
-            _moveAnimationMechanic.Enable();
-        }
-
-        public void Disable()
-        {
-            _moveAnimationMechanic.Disable();
-            _meleeAttackAnimationMechanic.Disable();
-            _deathAnimationMechanic.Disable();
+            atomicObject.AddLogic(meleeAttackAnimationMechanic);
+            atomicObject.AddLogic(deathAnimationMechanic);
+            atomicObject.AddLogic(moveAnimationMechanic);
         }
     }
 }

@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game
 {
-    public sealed class DirectToPositionMechanic
+    public sealed class DirectToPositionMechanic : IAtomicUpdate
     {
         private readonly IAtomicValue<Vector3> _targetPosition;
         private readonly IAtomicVariable<Vector3> _direction;
@@ -19,7 +20,7 @@ namespace Game.Scripts.Game
             _position = position;
         }
 
-        public void Update()
+        public void OnUpdate(float deltaTime)
         {
             _direction.Value = (_targetPosition.Value - _position.Value).normalized;
         }

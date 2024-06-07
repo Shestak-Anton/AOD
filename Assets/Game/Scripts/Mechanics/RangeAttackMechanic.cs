@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game.Enemy
 {
-    public class RangeAttackMechanic
+    public class RangeAttackMechanic : IAtomicUpdate
     {
         private readonly IAtomicValue<float> _attackDistance;
         private readonly IAtomicVariable<Vector3> _position;
@@ -22,8 +23,7 @@ namespace Game.Scripts.Game.Enemy
             _inAttackRange = inAttackRange;
         }
 
-
-        public void Update()
+        public void OnUpdate(float deltaTime)
         {
             _inAttackRange.Value = Vector3.Distance(_position.Value, _target.Value) <= _attackDistance.Value;
         }

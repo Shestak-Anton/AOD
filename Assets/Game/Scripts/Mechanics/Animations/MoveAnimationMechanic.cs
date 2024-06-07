@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game.Enemy
 {
-    public class MoveAnimationMechanic
+    public class MoveAnimationMechanic : IAtomicEnable, IAtomicDisable
     {
         private readonly Animator _animator;
         private readonly IAtomicObservable<Vector3> _moveDirection;

@@ -14,7 +14,7 @@ namespace Game.Scripts
         public const string SHOOT_REQUEST_EVENT = nameof(SHOOT_REQUEST_EVENT);
     }
 
-    public sealed class Player : AtomicEntity
+    public sealed class Player : AtomicObject
     {
         [SerializeField] private PlayerCore _playerCore;
         [SerializeField] private PlayerView _playerView;
@@ -41,23 +41,26 @@ namespace Game.Scripts
 
         private void Awake()
         {
-            _playerCore.Build(_cursor);
+            _playerCore.Build(_cursor, this);
             _playerView.Build(_playerCore);
         }
 
         private void OnEnable()
         {
+            Enable();
             _playerCore.Enable();
             _playerView.Enable();
         }
 
         private void Update()
         {
+            OnUpdate(Time.deltaTime);
             _playerCore.Update();
         }
 
         private void OnDisable()
         {
+            Disable();
             _playerView.Disable();
             _playerCore.Disable();
         }

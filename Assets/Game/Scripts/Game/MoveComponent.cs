@@ -1,5 +1,6 @@
 using System;
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game
@@ -15,28 +16,25 @@ namespace Game.Scripts.Game
         private MoveMechanic _moveMechanic;
         private DataPositionChangedHandler _dataPositionChangedHandler;
 
-        public void Compose(Func<bool> canMove)
+        public void Compose(Func<bool> canMove, AtomicObject atomicObject)
         {
             CanMove.Compose(canMove);
+            _moveMechanic = new MoveMechanic(MoveDirection, Speed, Position, CanMove);
+            
+            atomicObject.AddLogic(_moveMechanic);
         }
 
         private void Awake()
         {
             Position.Value = transform.position;
-
-            _moveMechanic = new MoveMechanic(MoveDirection, Speed, Position, CanMove);
             _dataPositionChangedHandler = new DataPositionChangedHandler(Position, transform);
+
         }
 
 
         private void OnEnable()
         {
             _dataPositionChangedHandler.Enable();
-        }
-
-        private void Update()
-        {
-            _moveMechanic.Update(Time.deltaTime);
         }
 
         private void OnDisable()

@@ -1,5 +1,6 @@
 using System;
 using Atomic.Elements;
+using Atomic.Objects;
 using Game.Scripts.Game;
 using Game.Scripts.Game.Enemy;
 using UnityEngine;
@@ -24,12 +25,12 @@ namespace Game.Scripts
         private ShootMechanic _shootMechanic;
 
 
-        public void Build(Cursor cursor)
+        public void Build(Cursor cursor, AtomicObject atomicObject)
         {
-            LifeComponent.Build();
-            LookAtComponent.Build(() => cursor.Position, () => !LifeComponent.IsDead.Value);
+            LifeComponent.Build(atomicObject);
+            LookAtComponent.Build(() => cursor.Position, () => !LifeComponent.IsDead.Value, atomicObject);
             var isShootingAvailable = new AtomicFunction<bool>(() => !LifeComponent.IsDead.Value);
-            MoveComponent.Compose(() => !LifeComponent.IsDead.Value);
+            MoveComponent.Compose(() => !LifeComponent.IsDead.Value, atomicObject);
             _takeDamageMechanic = new TakeDamageMechanic(TakeDamageComponent.TakeDamage, LifeComponent.Hp);
             _shootMechanic = new ShootMechanic(
                 BulletsCount,
@@ -43,7 +44,6 @@ namespace Game.Scripts
 
         public void Enable()
         {
-            LifeComponent.Enable();
             _takeDamageMechanic.Enable();
             _shootMechanic.Enable();
         }
@@ -55,7 +55,6 @@ namespace Game.Scripts
 
         public void Disable()
         {
-            LifeComponent.Disable();
             _takeDamageMechanic.Disable();
             _shootMechanic.Disable();
         }

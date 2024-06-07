@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts
 {
-    public sealed class RotationMechanic
+    public sealed class RotationMechanic : IAtomicEnable, IAtomicDisable
     {
         private readonly Transform _transform;
         private readonly IAtomicObservable<Vector3> _rotation;

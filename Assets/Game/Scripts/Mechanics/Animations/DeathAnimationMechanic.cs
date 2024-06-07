@@ -1,10 +1,11 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using Game.Scripts.Game;
 using UnityEngine;
 
 namespace Game.Scripts
 {
-    public sealed class DeathAnimationMechanic
+    public sealed class DeathAnimationMechanic: IAtomicEnable, IAtomicDisable
     {
         private readonly Animator _animator;
         private readonly AnimationDispatcher _animationDispatcher;

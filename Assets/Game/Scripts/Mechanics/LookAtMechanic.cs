@@ -1,9 +1,10 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts
 {
-    public sealed class LookAtMechanic
+    public sealed class LookAtMechanic : IAtomicUpdate
     {
         private readonly IAtomicEvent<Vector3> _rotateAction;
         private readonly IAtomicFunction<Vector3> _targetPoint;
@@ -21,7 +22,7 @@ namespace Game.Scripts
             _canLook = canLook;
         }
 
-        public void Update()
+        public void OnUpdate(float deltaTime)
         {
             if (!_canLook.Invoke()) return;
             var direction = _targetPoint.Invoke() - _pointOfViewPosition.Invoke();

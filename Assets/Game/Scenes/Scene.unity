@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0311beadeb14149a4b76c378afc0908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxZombieOnScene: 1
+  MaxZombieOnScene: 10
 --- !u!1001 &625937915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ PrefabInstance:
     - target: {fileID: 7407785881584448287, guid: 3b5b2ae0f895574449961910366cbf8a,
         type: 3}
       propertyPath: _playerCore.<LifeComponent>k__BackingField.<Hp>k__BackingField.value
-      value: 600
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8776197190763700013, guid: 3b5b2ae0f895574449961910366cbf8a,
         type: 3}

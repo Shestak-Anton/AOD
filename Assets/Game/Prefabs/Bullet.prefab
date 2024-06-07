@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveComponent: {fileID: 8076247770149666457}
   _speed: 30
-  _damage: 10
+  _damage: 1
 --- !u!114 &8076247770149666457
 MonoBehaviour:
   m_ObjectHideFlags: 0

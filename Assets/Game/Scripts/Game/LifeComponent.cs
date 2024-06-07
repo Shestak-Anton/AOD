@@ -1,5 +1,6 @@
 using System;
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 namespace Game.Scripts.Game
@@ -10,22 +11,10 @@ namespace Game.Scripts.Game
         [field: SerializeField] public AtomicVariable<int> Hp { private set; get; }
         [field: SerializeField] public AtomicVariable<bool> IsDead { private set; get; }
         [field: SerializeField] public AtomicEvent OnDeadEvent { private set; get; }
-
-        private DeathMechanic _deathMechanic;
-
-        public void Build()
+        
+        public void Build(AtomicObject atomicObject)
         {
-            _deathMechanic = new DeathMechanic(Hp, IsDead, OnDeadEvent);
-        }
-
-        public void Enable()
-        {
-            _deathMechanic.Enable();
-        }
-
-        public void Disable()
-        {
-            _deathMechanic.Disable();
+            atomicObject.AddLogic(new DeathMechanic(Hp, IsDead, OnDeadEvent));
         }
     }
 }

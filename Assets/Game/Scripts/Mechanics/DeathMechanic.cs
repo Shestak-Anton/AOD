@@ -1,8 +1,9 @@
 using Atomic.Elements;
+using Atomic.Objects;
 
 namespace Game.Scripts.Game
 {
-    public sealed class DeathMechanic
+    public sealed class DeathMechanic: IAtomicEnable, IAtomicDisable
     {
         private readonly IAtomicObservable<int> _hp;
         private readonly IAtomicVariable<bool> _isDead;
